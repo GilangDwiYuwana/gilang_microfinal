@@ -1,29 +1,141 @@
-# Proyek Microservices Perpustakaan, Monitoring, dan Jenkins
+## 1. Deskripsi Proyek
 
-Proyek ini merupakan implementasi sistem perpustakaan berbasis microservices yang dilengkapi dengan sistem monitoring dan pipeline CI/CD.
+Proyek ini merupakan implementasi sistem **Microservice Perpustakaan** yang dilengkapi dengan **Monitoring Aplikasi** serta **Continuous Integration (CI) menggunakan Jenkins**. Proyek ini bertujuan untuk memahami dan menerapkan konsep arsitektur microservice, pemantauan kinerja aplikasi, serta otomatisasi proses build dan deployment.
 
-## Langkah-Langkah Pembuatan & Konfigurasi
+Seluruh source code dan file konfigurasi diunggah ke repository GitHub sebagai bagian dari tugas mata kuliah **Microservice/DevOps** dengan topik **Perpustakaan, Monitoring, dan Jenkins**.
 
-### A. Pengembangan Microservices (Folder: perpustakaan)
-1. **Inisialisasi Project**: Menggunakan Spring Initializr untuk membuat modul: `eureka-server`, `api-gateway`, `service-anggota`, `service-buku`, `service-peminjaman`, dan `service-pengembalian`.
-2. **Service Discovery**: Mengonfigurasi `eureka` agar setiap service dapat saling mengenali tanpa hardcode IP address.
-3. **Database**: Menggunakan database (seperti MySQL/H2) untuk setiap service guna memenuhi prinsip *Database per Service*.
-4. **Inter-service Communication**: Implementasi komunikasi antar service menggunakan RestTemplate atau FeignClient.
 
-### B. Setup Monitoring (Folder: monitor)
-1. **Prometheus**: Menambahkan dependensi `micrometer-registry-prometheus` pada setiap microservice.
-2. **Konfigurasi Prometheus**: Membuat file `prometheus.yml` untuk menarik (scrape) data metrik dari endpoint `/actuator/prometheus`.
-3. **Grafana**: Menjalankan Grafana via Docker untuk memvisualisasikan data dari Prometheus menjadi dashboard yang mudah dibaca.
+## 2. Tools dan Teknologi yang Digunakan
 
-### C. Automasi dengan Jenkins (Folder: jenkins)
-1. **Pipeline Script**: Membuat `Jenkinsfile` yang mendefinisikan tahapan:
-   - **Checkout**: Mengambil kode terbaru dari GitHub.
-   - **Build**: Melakukan kompilasi menggunakan Maven (`mvn clean package`).
-   - **Test**: Menjalankan unit testing otomatis.
-2. **Deployment**: Mengatur Jenkins untuk melakukan deploy otomatis setelah build berhasil.
+Teknologi dan tools yang digunakan dalam proyek ini antara lain:
 
-## Cara Menjalankan Sistem
-1. Jalankan **Eureka Server** terlebih dahulu.
-2. Jalankan **API Gateway**.
-3. Jalankan semua layanan di folder **perpustakaan**.
-4. Gunakan `docker-compose up -d` di folder **monitor** untuk menyalakan monitoring.
+- Git dan GitHub
+- Bahasa Pemrograman Backend (Java / Node.js)
+- Docker
+- Jenkins
+- Prometheus
+- Grafana
+
+
+## 3. Inisialisasi Repository Git
+
+Tahap awal pengembangan dimulai dengan pembuatan repository Git lokal yang kemudian dihubungkan dengan repository GitHub.
+
+Langkah-langkah yang dilakukan:
+1. Membuat folder project
+2. Melakukan inisialisasi Git
+3. Menambahkan remote repository GitHub
+4. Melakukan commit awal dan push ke GitHub
+
+
+perintah git :
+git init
+git branch -M main
+git remote add origin https://github.com/USERNAME/NAMA_REPOSITORY.git
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+
+
+
+---
+
+## 4. Pembuatan Microservice Perpustakaan
+
+```md
+## 4. Pembuatan Microservice Perpustakaan
+
+Microservice Perpustakaan dikembangkan untuk menangani beberapa fungsi utama, yaitu:
+- Pengelolaan data buku
+- Pengelolaan data anggota
+- Proses peminjaman dan pengembalian buku
+
+Aplikasi dirancang menggunakan konsep **REST API**, sehingga setiap fitur dapat diakses melalui endpoint HTTP secara terpisah dan modular sesuai dengan prinsip microservice.
+
+
+## 5. Dockerisasi Aplikasi
+
+Untuk memastikan aplikasi dapat dijalankan secara konsisten di berbagai lingkungan, microservice dikemas menggunakan **Docker**.
+
+Langkah-langkah dockerisasi aplikasi meliputi:
+- Membuat file `Dockerfile`
+- Menentukan base image yang sesuai
+- Menyalin source code aplikasi ke dalam container
+- Menjalankan aplikasi di dalam container Docker
+
+Setelah itu dilakukan proses build dan run Docker image untuk memastikan aplikasi berjalan dengan baik.
+
+
+## 6. Implementasi Monitoring
+
+Monitoring diterapkan untuk memantau kondisi dan performa aplikasi microservice yang sedang berjalan.
+
+Tahapan implementasi monitoring adalah sebagai berikut:
+- Menggunakan **Prometheus** untuk mengambil dan mengumpulkan data metrik aplikasi
+- Menggunakan **Grafana** untuk menampilkan data monitoring dalam bentuk dashboard visual
+- Menjalankan layanan monitoring menggunakan **Docker Compose**
+- Memastikan aplikasi dapat dimonitor secara real-time
+
+Dengan adanya monitoring ini, performa dan kondisi aplikasi dapat diamati secara lebih efektif.
+
+
+## 7. Instalasi dan Konfigurasi Jenkins
+
+Jenkins digunakan sebagai alat **Continuous Integration (CI)** untuk mengotomatisasi proses build dan deploy aplikasi.
+
+Langkah-langkah yang dilakukan meliputi:
+- Menginstal Jenkins
+- Mengakses Jenkins melalui browser
+- Membuat Pipeline Project
+- Menghubungkan Jenkins dengan repository GitHub
+
+
+## 8. Konfigurasi Jenkins Pipeline
+
+Pipeline Jenkins didefinisikan menggunakan file `Jenkinsfile` yang berisi beberapa tahapan utama, yaitu:
+- Mengambil source code dari GitHub
+- Build aplikasi
+- Build Docker image
+- Menjalankan aplikasi menggunakan Docker
+
+Pipeline ini memungkinkan setiap perubahan kode yang di-push ke GitHub dapat diproses secara otomatis oleh Jenkins.
+
+
+## 9. Integrasi GitHub dan Jenkins
+
+Setelah integrasi antara GitHub dan Jenkins berhasil dilakukan:
+- Setiap perintah `git push` ke branch utama
+- Jenkins akan otomatis menjalankan pipeline
+- Proses build dan deploy berjalan secara otomatis tanpa dilakukan secara manual
+
+Hal ini menunjukkan penerapan konsep **CI/CD (Continuous Integration dan Continuous Deployment)**.
+
+
+## 10. Upload ke GitHub
+
+Repository GitHub pada proyek ini berisi:
+- Source code aplikasi Perpustakaan
+- File `Dockerfile`
+- File `docker-compose.yml` untuk monitoring
+- File `Jenkinsfile`
+- File `README.md`
+
+Seluruh file konfigurasi dan dokumentasi telah diunggah sesuai dengan ketentuan tugas.
+
+
+## 11. Kesimpulan
+
+Melalui proyek ini, telah berhasil diimplementasikan:
+- Arsitektur Microservice
+- Monitoring aplikasi menggunakan Prometheus dan Grafana
+- Continuous Integration menggunakan Jenkins
+- Pengelolaan source code menggunakan GitHub
+
+Proyek ini menunjukkan integrasi yang baik antara pengembangan aplikasi, monitoring sistem, serta otomatisasi proses build dan deployment.
+
+
+## 12. Identitas
+
+- **Nama** : Vania  
+- **Mata Kuliah** : Microservice / DevOps  
+- **Topik Tugas** : Perpustakaan, Monitoring, dan Jenkins
